@@ -1,0 +1,36 @@
+#include <ap_int.h>
+#include <hls_stream.h>
+#include "stmul_large.h"
+
+uinth unit_mult(uintlhalf a_0, uintlhalf a_1, uintlhalf a_2, uintlhalf a_3, uintlhalf b_0, uintlhalf b_1, uintlhalf b_2, uintlhalf b_3){
+	uinth o;
+	mul(&o,a_0,a_1,a_2,a_3,b_0,b_1,b_2,b_3);
+	return o;
+}
+
+#ifndef DIRECT_MULTIPLIER
+uint_large_h adder(uint_large_h a, uint_large_h b){
+	uint_large_h result;
+	result = a + b;
+	return result;
+}
+#else
+uint_large_h direct_mult(uint_large_l x, uint_large_l y){
+#pragma HLS RESOURCE variable=return core=Mul_LUT
+	return (uint_large_h)x * (uint_large_h)y;
+}
+#endif
+
+void large_mul (
+		uint_large_h *y,
+		uint_large_l a,
+		uint_large_l b
+  ) {
+#ifdef DIRECT_MULTIPLIER
+	*y = direct_mult(a,b);
+#else
+
+//GENERATED_MULTIPLIER
+
+#endif
+}
