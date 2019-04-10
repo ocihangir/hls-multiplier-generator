@@ -35,7 +35,7 @@ large_multiplier_mult_type = sys.argv[9]
 print("Large Multiplier Targets:\nLatency : " + large_multiplier_latency + "\nInitiation Interval : " + large_multiplier_interval + "\nNumber Of Multipliers : " + large_multiplier_number_of_unit_multipliers + "\nMultiplier Type : " + large_multiplier_mult_type)
 
 #Large multiplier directives
-fo.write('set_directive_latency -min ' + str(large_multiplier_latency) + ' -max ' + str(large_multiplier_latency) + ' "large_mul"\n')
+fo.write('set_directive_latency -min ' + str(1) + ' -max ' + str(large_multiplier_latency) + ' "large_mul"\n')
 fo.write('set_directive_pipeline -II ' + str(large_multiplier_interval) + ' "large_mul"\n')
 fo.write('set_directive_allocation -limit ' + str(large_multiplier_number_of_unit_multipliers) + ' -type function "large_mul" unit_mult\n')
 fo.write('set_directive_resource -core ' + large_multiplier_mult_type + ' "large_mul" y\n')

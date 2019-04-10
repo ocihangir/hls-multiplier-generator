@@ -12,7 +12,7 @@ fo = open("results_analyze.csv","w+")
 
 first = True
 for dir in f:
-    tree = ET.parse('./simulation_outputs/' + dir + "/mul_csynth.xml")
+    tree = ET.parse('./simulation_outputs/' + dir + "/csynth.xml")
     root = tree.getroot()
     if first:
         fo.write(dir.replace("_", ",") + "," + root.findall("PerformanceEstimates/SummaryOfTimingAnalysis/EstimatedClockPeriod")[0].tag + "," + root.findall("PerformanceEstimates/SummaryOfOverallLatency/Worst-caseLatency")[0].tag  + "," + root.findall("PerformanceEstimates/SummaryOfOverallLatency/Interval-max")[0].tag  + "," + root.findall("AreaEstimates/Resources/LUT")[0].tag  + "," + root.findall("AreaEstimates/Resources/FF")[0].tag  + "," + root.findall("AreaEstimates/Resources/DSP48E")[0].tag + "\n")

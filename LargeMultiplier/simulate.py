@@ -3,8 +3,10 @@ import os
 from shutil import copyfile
 
 # unit_multiplier_latency unit_multiplier_interval unit_multiplier_#mult, unit_multiplier_#add, unit_multiplier_bit_width, large_multiplier_number_of_unit_mults, large_multiplier_latency, large_multiplier_interval, output_width
-value_range = [[5,2,2,3,1,1,1,1,64],[5,2,2,3,2,1,1,1,64],[5,2,2,3,4,1,1,1,64],[5,2,2,3,8,1,1,1,64],[5,2,2,3,16,1,1,1,64],
-               [5,2,2,3,1,1,1,1,64],[5,2,2,3,2,1,1,1,64],[5,2,2,3,4,1,1,1,64],[5,2,2,3,8,1,1,1,64],[5,2,2,3,16,1,1,1,64]] #,[5,2,2,3,8,16,1,1],[5,2,2,3,16,16,1,1],[5,2,2,3,32,16,1,1],[1,1,1,1,4,16,1,1],[1,1,1,1,8,16,1,1],[1,1,1,1,16,16,1,1],[1,1,1,1,32,16,1,1],[1,1,4,4,4,16,1,1],[1,1,4,4,8,16,1,1],[1,1,4,4,16,16,1,1],[1,1,4,4,32,16,1,1]]
+value_range = [[5,2,2,3,4,1,64,2,128],[5,2,2,3,8,1,64,2,128],[5,2,2,3,16,1,64,2,128],
+               [5,2,2,3,4,2,64,2,128],[5,2,2,3,8,2,64,2,128],[5,2,2,3,16,2,64,2,128],
+               [5,2,2,3,4,4,64,2,128],[5,2,2,3,8,4,64,2,128],[5,2,2,3,16,4,64,2,128],
+               [5,2,2,3,4,8,64,2,128],[5,2,2,3,8,8,64,2,128],[5,2,2,3,16,8,64,2,128]] #,[5,2,2,3,8,16,1,1],[5,2,2,3,16,16,1,1],[5,2,2,3,32,16,1,1],[1,1,1,1,4,16,1,1],[1,1,1,1,8,16,1,1],[1,1,1,1,16,16,1,1],[1,1,1,1,32,16,1,1],[1,1,4,4,4,16,1,1],[1,1,4,4,8,16,1,1],[1,1,4,4,16,16,1,1],[1,1,4,4,32,16,1,1]]
 
 #bit_width_range = [4, 8, 16, 32, 64]
 #latency_range = [8, 7, 6, 5, 4, 3, 2, 1]
@@ -46,7 +48,7 @@ for value in value_range:
         print("Folder is already exist. Skipping.")
 
     # copy files
-    folder = "./simulation_outputs/csynth_"  + str(latency) + "_" + str(interval) + "_" + str(number_of_mults) + "_" + str(number_of_adders) + "_" + str(bit_width) + "_" + str(large_multiplier_number_of_unit_mults) + "_" + str(large_multiplier_latency) + "_" + str(large_multiplier_interval)
+    folder = "./simulation_outputs/csynth_"  + str(latency) + "_" + str(interval) + "_" + str(number_of_mults) + "_" + str(number_of_adders) + "_" + str(bit_width) + "_" + str(large_multiplier_number_of_unit_mults) + "_" + str(large_multiplier_latency) + "_" + str(large_multiplier_interval) + "_" + str(large_multiplier_output_width)
     try:
         os.mkdir(folder)
     except:
@@ -60,8 +62,14 @@ for value in value_range:
     src_file = "./mul_prj/solution1/syn/report/mult_csynth.xml"
     dest_file = folder + "/mult_csynth.xml"
     copyfile(src_file, dest_file)
-    src_file = "./mul_prj/solution1/syn/report/mult_csynth.xml"
-    dest_file = folder + "/mult_csynth.xml"
+    src_file = "./mul_prj/solution1/syn/report/csynth.xml"
+    dest_file = folder + "/csynth.xml"
+    copyfile(src_file, dest_file)
+    src_file = "./mul_prj/solution1/syn/report/unit_mult_csynth.xml"
+    dest_file = folder + "/unit_mult_csynth.xml"
+    copyfile(src_file, dest_file)
+    src_file = "./mul_prj/solution1/syn/report/large_mul_csynth.xml"
+    dest_file = folder + "/large_mul_csynth.xml"
     copyfile(src_file, dest_file)
 
     src_file = "./mul_prj/solution1/syn/report/mul_csynth.rpt"
@@ -72,5 +80,11 @@ for value in value_range:
     copyfile(src_file, dest_file)
     src_file = "./mul_prj/solution1/syn/report/mult_csynth.rpt"
     dest_file = folder + "/mult_csynth.rpt"
+    copyfile(src_file, dest_file)
+    src_file = "./mul_prj/solution1/syn/report/unit_mult_csynth.rpt"
+    dest_file = folder + "/unit_mult_csynth.rpt"
+    copyfile(src_file, dest_file)
+    src_file = "./mul_prj/solution1/syn/report/large_mul_csynth.rpt"
+    dest_file = folder + "/large_mul_csynth.rpt"
     copyfile(src_file, dest_file)
     
