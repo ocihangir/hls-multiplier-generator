@@ -10,6 +10,6 @@ create_clock -period 2.5 -name default
 source "directives.tcl"
 csim_design
 csynth_design
-cosim_design
-export_design -rtl verilog -format ip_catalog
+#cosim_design
+#export_design -rtl verilog -format ip_catalog
 exit
