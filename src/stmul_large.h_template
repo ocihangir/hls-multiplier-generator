@@ -9,13 +9,23 @@
 
 //#define LRG_WIDTH256
 
+#ifdef LRG_WIDTH16
+
+#define MUL_LRG_MAX_WIDTH 16
+
+typedef ap_uint<16> uint_large_h;
+typedef ap_uint<8> uint_large_l;
+typedef ap_uint<4> uintl_large_half;
+
+#endif
+
 #ifdef LRG_WIDTH32
 
 #define MUL_LRG_MAX_WIDTH 32
 
-typedef uint32 uint_large_h;
-typedef uint16 uint_large_l;
-typedef uint8 uintl_large_half;
+typedef ap_uint<32> uint_large_h;
+typedef ap_uint<16> uint_large_l;
+typedef ap_uint<8> uintl_large_half;
 
 #endif
 
