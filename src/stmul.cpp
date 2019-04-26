@@ -18,7 +18,7 @@ uintl add(uintlhalf x, uintlhalf y, uintlhalf c){
 }
 #else
 uinth mult(uintl x, uintl y){
-#pragma HLS RESOURCE variable=return core=Mul_LUT
+//#pragma HLS RESOURCE variable=return core=Mul_LUT
 	uinth m1 = (uinth)((uinth)x * (uinth)y);
 	return m1;
 }

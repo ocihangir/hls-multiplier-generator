@@ -12,7 +12,7 @@ open_solution "solution1" -reset
 set_part {xc7k160tfbg484-2} -tool vivado
 create_clock -period 2.5 -name default
 source "directives.tcl"
-#csim_design
+csim_design
 csynth_design
 #cosim_design
 #export_design -rtl verilog -format ip_catalog

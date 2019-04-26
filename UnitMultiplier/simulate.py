@@ -3,11 +3,70 @@ import os
 from shutil import copyfile
 
 # latency interval #mult, #add, bit_width
-value_range = [ [4,2,4,4,4],[4,2,4,4,8],[4,2,4,4,16],[4,2,4,4,32],
-                [4,2,3,3,4],[4,2,3,3,8],[4,2,3,3,16],[4,2,3,3,32],
-                [4,2,2,2,4],[4,2,2,2,8],[4,2,2,2,16],[4,2,2,2,32],
-                [4,2,1,1,4],[4,2,1,1,8],[4,2,1,1,16],[4,2,1,1,32]]
+#value_range = [ [5,2,2,3,4],[5,2,2,3,8],[5,2,2,3,16],[5,2,2,3,32],
+#                [5,2,4,4,4],[5,2,4,4,8],[5,2,4,4,16],[5,2,4,4,32],
+#                [5,2,3,3,4],[5,2,3,3,8],[5,2,3,3,16],[5,2,3,3,32],
+#                [5,2,2,2,4],[5,2,2,2,8],[5,2,2,2,16],[5,2,2,2,32],
+#                [5,2,1,1,4],[5,2,1,1,8],[5,2,1,1,16],[5,2,1,1,32]]
 
+value_range = [[5, 5, 1, 1, 64]]
+
+'''for lat in range(1,6):
+    for interval in range(1,lat+1):
+        value_range.append([lat, interval, 1, 1, 4])
+        value_range.append([lat, interval, 1, 2, 4])
+        value_range.append([lat, interval, 1, 3, 4])
+        value_range.append([lat, interval, 2, 1, 4])
+        value_range.append([lat, interval, 2, 2, 4])
+        value_range.append([lat, interval, 2, 3, 4])
+        value_range.append([lat, interval, 4, 1, 4])
+        value_range.append([lat, interval, 4, 2, 4])
+        value_range.append([lat, interval, 4, 3, 4])
+        value_range.append([lat, interval, 4, 4, 4])
+
+        value_range.append([lat, interval, 1, 1, 8])
+        value_range.append([lat, interval, 1, 2, 8])
+        value_range.append([lat, interval, 1, 3, 8])
+        value_range.append([lat, interval, 2, 1, 8])
+        value_range.append([lat, interval, 2, 2, 8])
+        value_range.append([lat, interval, 2, 3, 8])
+        value_range.append([lat, interval, 4, 1, 8])
+        value_range.append([lat, interval, 4, 2, 8])
+        value_range.append([lat, interval, 4, 3, 8])
+        value_range.append([lat, interval, 4, 4, 8])
+
+        value_range.append([lat, interval, 1, 1, 16])
+        value_range.append([lat, interval, 1, 2, 16])
+        value_range.append([lat, interval, 1, 3, 16])
+        value_range.append([lat, interval, 2, 1, 16])
+        value_range.append([lat, interval, 2, 2, 16])
+        value_range.append([lat, interval, 2, 3, 16])
+        value_range.append([lat, interval, 4, 1, 16])
+        value_range.append([lat, interval, 4, 2, 16])
+        value_range.append([lat, interval, 4, 3, 16])
+        value_range.append([lat, interval, 4, 4, 16])
+
+        value_range.append([lat, interval, 1, 1, 32])
+        value_range.append([lat, interval, 1, 2, 32])
+        value_range.append([lat, interval, 1, 3, 32])
+        value_range.append([lat, interval, 2, 1, 32])
+        value_range.append([lat, interval, 2, 2, 32])
+        value_range.append([lat, interval, 2, 3, 32])
+        value_range.append([lat, interval, 4, 1, 32])
+        value_range.append([lat, interval, 4, 2, 32])
+        value_range.append([lat, interval, 4, 3, 32])
+        value_range.append([lat, interval, 4, 4, 32])
+
+        value_range.append([lat, interval, 1, 1, 64])
+        value_range.append([lat, interval, 1, 2, 64])
+        value_range.append([lat, interval, 1, 3, 64])
+        value_range.append([lat, interval, 2, 1, 64])
+        value_range.append([lat, interval, 2, 2, 64])
+        value_range.append([lat, interval, 2, 3, 64])
+        value_range.append([lat, interval, 4, 1, 64])
+        value_range.append([lat, interval, 4, 2, 64])
+        value_range.append([lat, interval, 4, 3, 64])
+        value_range.append([lat, interval, 4, 4, 64])'''
 
 print(value_range)
 print("size : ", len(value_range))
@@ -53,9 +112,9 @@ for value in value_range:
     src_file = "./mul_prj/solution1/syn/report/mul_csynth.xml"
     dest_file = folder + "/mul_csynth.xml"
     copyfile(src_file, dest_file)
-    src_file = "./mul_prj/solution1/syn/report/add_csynth.xml"
-    dest_file = folder + "/add_csynth.xml"
-    copyfile(src_file, dest_file)
+    #src_file = "./mul_prj/solution1/syn/report/add_csynth.xml"
+    #dest_file = folder + "/add_csynth.xml"
+    #copyfile(src_file, dest_file)
     src_file = "./mul_prj/solution1/syn/report/mult_csynth.xml"
     dest_file = folder + "/mult_csynth.xml"
     copyfile(src_file, dest_file)
@@ -66,9 +125,9 @@ for value in value_range:
     src_file = "./mul_prj/solution1/syn/report/mul_csynth.rpt"
     dest_file = folder + "/mul_csynth.rpt"
     copyfile(src_file, dest_file)
-    src_file = "./mul_prj/solution1/syn/report/add_csynth.rpt"
-    dest_file = folder + "/add_csynth.rpt"
-    copyfile(src_file, dest_file)
+    #src_file = "./mul_prj/solution1/syn/report/add_csynth.rpt"
+    #dest_file = folder + "/add_csynth.rpt"
+    #copyfile(src_file, dest_file)
     src_file = "./mul_prj/solution1/syn/report/mult_csynth.rpt"
     dest_file = folder + "/mult_csynth.rpt"
     copyfile(src_file, dest_file)

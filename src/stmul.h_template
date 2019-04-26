@@ -11,6 +11,8 @@
 #ifdef WIDTH4
 
 #define MUL_MAX_WIDTH 4
+#define NUMBEROF32BITOP 1
+#define NUMBEROF32BITRES 1
 
 typedef ap_uint<4> uinth;
 typedef ap_uint<2> uintl;
@@ -21,6 +23,8 @@ typedef ap_uint<1> uintlhalf;
 #ifdef WIDTH8
 
 #define MUL_MAX_WIDTH 8
+#define NUMBEROF32BITOP 1
+#define NUMBEROF32BITRES 1
 
 typedef ap_uint<8> uinth;
 typedef ap_uint<4> uintl;
@@ -31,6 +35,8 @@ typedef ap_uint<2> uintlhalf;
 #ifdef WIDTH16
 
 #define MUL_MAX_WIDTH 16
+#define NUMBEROF32BITOP 1
+#define NUMBEROF32BITRES 1
 
 typedef ap_uint<16> uinth;
 typedef ap_uint<8> uintl;
@@ -41,6 +47,8 @@ typedef ap_uint<4> uintlhalf;
 #ifdef WIDTH32
 
 #define MUL_MAX_WIDTH 32
+#define NUMBEROF32BITOP 1
+#define NUMBEROF32BITRES 1
 
 typedef ap_uint<32> uinth;
 typedef ap_uint<16> uintl;
@@ -51,6 +59,8 @@ typedef ap_uint<8> uintlhalf;
 #ifdef WIDTH64
 
 #define MUL_MAX_WIDTH 64
+#define NUMBEROF32BITOP 1
+#define NUMBEROF32BITRES 2
 
 typedef ap_uint<64> uinth;
 typedef ap_uint<32> uintl;
@@ -61,6 +71,8 @@ typedef ap_uint<16> uintlhalf;
 #ifdef WIDTH128
 
 #define MUL_MAX_WIDTH 128
+#define NUMBEROF32BITOP 2
+#define NUMBEROF32BITRES 4
 
 typedef ap_uint<128> uinth;
 typedef ap_uint<64> uintl;
@@ -71,6 +83,8 @@ typedef ap_uint<32> uintlhalf;
 #ifdef WIDTH256
 
 #define MUL_MAX_WIDTH 256
+#define NUMBEROF32BITOP 4
+#define NUMBEROF32BITRES 8
 
 typedef ap_uint<256> uinth;
 typedef ap_uint<128> uintl;
@@ -81,6 +95,8 @@ typedef ap_uint<64> uintlhalf;
 #ifdef WIDTH512
 
 #define MUL_MAX_WIDTH 512
+#define NUMBEROF32BITOP 8
+#define NUMBEROF32BITRES 16
 
 typedef ap_uint<512> uinth;
 typedef ap_uint<256> uintl;
@@ -91,6 +107,8 @@ typedef ap_uint<128> uintlhalf;
 #ifdef WIDTH1024
 
 #define MUL_MAX_WIDTH 1024
+#define NUMBEROF32BITOP 16
+#define NUMBEROF32BITRES 32
 
 typedef ap_uint<1024> uinth;
 typedef ap_uint<512> uintl;
