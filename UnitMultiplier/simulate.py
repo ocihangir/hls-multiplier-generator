@@ -9,9 +9,9 @@ from shutil import copyfile
 #                [5,2,2,2,4],[5,2,2,2,8],[5,2,2,2,16],[5,2,2,2,32],
 #                [5,2,1,1,4],[5,2,1,1,8],[5,2,1,1,16],[5,2,1,1,32]]
 
-value_range = [[5, 5, 1, 1, 64]]
+value_range = [[5, 4, 4, 4, 32]]
 
-'''for lat in range(1,6):
+'''for lat in range(6,8):
     for interval in range(1,lat+1):
         value_range.append([lat, interval, 1, 1, 4])
         value_range.append([lat, interval, 1, 2, 4])

@@ -39,24 +39,40 @@ from shutil import copyfile
                [5,2,2,3,64,32,32,2,2048],[5,2,2,3,128,32,32,2,2048],[5,2,2,3,256,32,32,2,2048],[5,2,2,3,32,32,32,2,2048]] #,[5,2,2,3,128,16,1,1],[5,2,2,3,16,16,1,1],[5,2,2,3,32,16,1,1],[1,1,1,1,4,16,1,1],[1,1,1,1,8,16,1,1],[1,1,1,1,16,16,1,1],[1,1,1,1,32,16,1,1],[1,1,4,4,4,16,1,1],[1,1,4,4,8,16,1,1],[1,1,4,4,16,16,1,1],[1,1,4,4,32,16,1,1]]
 '''
 
-value_range = [[5, 2, 2, 3, 64, 1,64,2,512]]
+value_range = [[5,2,2,3,16,1,64,2,256],[5,2,2,3,16,1,64,2,512],
+                [5,2,2,3,32,1,64,2,256],[5,2,2,3,32,1,64,2,512],
+                [5,2,2,3,64,1,64,2,256],[5,2,2,3,64,1,64,2,512]]
 '''for lat in range(1,6):
     for interval in range(1,lat+1):
         for num_of_umult in range(1,5):
             for out_width in [256,512]:
-                value_range.append([lat,interval,1,1,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,1,2,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,1,3,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,2,1,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,2,2,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,2,3,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,3,1,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,3,2,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,3,3,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,4,1,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,4,2,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,4,3,64,num_of_umult,64,2,out_width])
-                value_range.append([lat,interval,4,4,64,num_of_umult,64,2,out_width])'''
+                value_range.append([lat,interval,1,1,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,1,2,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,1,3,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,2,1,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,2,2,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,2,3,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,3,1,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,3,2,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,3,3,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,1,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,2,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,3,32,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,4,32,num_of_umult,64,2,out_width])
+
+                value_range.append([lat,interval,1,1,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,1,2,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,1,3,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,2,1,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,2,2,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,2,3,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,3,1,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,3,2,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,3,3,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,1,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,2,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,3,16,num_of_umult,64,2,out_width])
+                value_range.append([lat,interval,4,4,16,num_of_umult,64,2,out_width])'''
         
 #bit_width_range = [4, 8, 16, 32, 64]
 #latency_range = [8, 7, 6, 5, 4, 3, 2, 1]
