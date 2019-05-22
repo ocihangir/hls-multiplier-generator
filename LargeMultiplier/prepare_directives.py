@@ -3,7 +3,7 @@ import sys
 print("Creating directives file...")
 
 if len(sys.argv) < 6:
-    print("usage : python prepare_directives.py unit_multiplier_latency unit_multiplier_interval unit_multiplier_number_of_mults unit_multiplier_number_of_adders unit_multiplier_mult_type large_multiplier_number_of_unit_mults large_multiplier_latency large_multiplier_interval large_multiplier_mult_type")
+    print("usage : python prepare_directives.py unit_multiplier_latency unit_multiplier_interval unit_multiplier_number_of_mults unit_multiplier_number_of_adders unit_multiplier_mult_type large_multiplier_number_of_unit_mults large_multiplier_latency large_multiplier_interval large_multiplier_mult_type large_multiplier_number_of_adders")
     exit
 
 fo = open("directives.tcl","w+")
@@ -23,7 +23,7 @@ fo.write('set_directive_latency -min ' + str(unit_multiplier_latency) + ' -max '
 fo.write('set_directive_pipeline -II ' + str(unit_multiplier_interval) + ' "mul"\n')
 fo.write('set_directive_allocation -limit ' + str(unit_multiplier_number_of_adders) + ' -type function "mul" add\n')
 fo.write('set_directive_allocation -limit ' + str(unit_multiplier_number_of_mults) + ' -type function "mul" mult\n')
-fo.write('set_directive_resource -core ' + str(unit_multiplier_mult_type) + ' "mult" return\n')
+#fo.write('set_directive_resource -core ' + str(unit_multiplier_mult_type) + ' "mult" return\n')
 
 
 
@@ -31,6 +31,7 @@ large_multiplier_number_of_unit_multipliers = sys.argv[6]
 large_multiplier_latency = sys.argv[7]
 large_multiplier_interval = sys.argv[8]
 large_multiplier_mult_type = sys.argv[9]
+large_multiplier_number_of_adders = sys.argv[10]
 
 print("Large Multiplier Targets:\nLatency : " + large_multiplier_latency + "\nInitiation Interval : " + large_multiplier_interval + "\nNumber Of Multipliers : " + large_multiplier_number_of_unit_multipliers + "\nMultiplier Type : " + large_multiplier_mult_type)
 
@@ -38,6 +39,7 @@ print("Large Multiplier Targets:\nLatency : " + large_multiplier_latency + "\nIn
 fo.write('set_directive_latency -min ' + str(1) + ' -max ' + str(large_multiplier_latency) + ' "large_mul"\n')
 fo.write('set_directive_pipeline -II ' + str(large_multiplier_interval) + ' "large_mul"\n')
 fo.write('set_directive_allocation -limit ' + str(large_multiplier_number_of_unit_multipliers) + ' -type function "large_mul" unit_mult\n')
+fo.write('set_directive_allocation -limit ' + str(large_multiplier_number_of_adders) + ' -type function "large_mul" adder\n')
 fo.write('set_directive_resource -core ' + large_multiplier_mult_type + ' "large_mul" y\n')
 
 fo.close()

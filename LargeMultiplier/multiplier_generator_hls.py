@@ -56,7 +56,8 @@ class LargeMultiplierGenerator(object):
 
         self.output_file.write("\n")
         self.output_file.write("// Unit multiplier outputs\n")
-        self.output_file.write("uint_large_h output[" + str(len(self.unit_mults) / 4) + "];\n")
+        self.output_file.write("//uint_large_h output[" + str(len(self.unit_mults) / 4) + "];\n")
+        self.output_file.write("uint_large_h tmp_output = 0;\n")
         self.output_file.write("\n")
 
         adder = ""
@@ -99,7 +100,8 @@ class LargeMultiplierGenerator(object):
                             if tmp < min_weight:
                                 min_weight = tmp
                         self.mult_pos.append(min_weight)
-                        self.output_file.write("output[" + str(ind) + "] = (uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " );\n")
+                        self.output_file.write("//output[" + str(ind) + "] = (uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " );\n")
+                        self.output_file.write("tmp_output = adder(tmp_output,(uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " ));\n")
                         adder = adder + " + output[" + str(ind) + "]"
                         break
                 
@@ -107,7 +109,8 @@ class LargeMultiplierGenerator(object):
         
         self.output_file.write("\n")
 
-        self.output_file.write("*y = " + adder + ";\n")
+        self.output_file.write("//*y = " + adder + ";\n")
+        self.output_file.write("*y = tmp_output;\n")
 
         self.output_file.write("\n")
         

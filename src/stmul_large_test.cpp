@@ -37,25 +37,57 @@ int main () {
 						gen_pattern_(MUL_LRG_LOW_WIDTH, 2),gen_pattern_(MUL_LRG_LOW_WIDTH, 2),gen_pattern_(MUL_LRG_LOW_WIDTH, 21),FULL_BIT};
   
   fp=fopen("out_large.dat","w");
-  //fp_calc=fopen("out_large.calc.dat","w");
+  fp_calc=fopen("out_large.calc.dat","w");
+
+  int numberOf32Bits = MUL_LRG_MAX_WIDTH / 32;
+
   int i;
   for (i=0;i<SAMPLES;i++) {
 	large_mul(&output,a[i], b[i]);
 	output_calc = (uint_large_h)((uint_large_h)a[i] * (uint_large_h)b[i]);
 		// Save the results.
-    unsigned long long ans1 = a[i];
-    unsigned long long ans2 = b[i];
-    unsigned long long ans3 = output.range(MUL_LRG_LOW_WIDTH-1, 0); //apint_get_range(output, MUL_LRG_LOW_WIDTH-1, 0);
-    unsigned long long ans4 = output.range(MUL_LRG_MAX_WIDTH-1, MUL_LRG_LOW_WIDTH); //apint_get_range(output, MUL_LRG_MAX_WIDTH-1, MUL_LRG_LOW_WIDTH);
-    printf("Output : %llX\n",output);
-    printf("Output calc : %llX\n",output_calc);
-    fprintf(fp,"%i %llX %llX %llX %llX\n",i, ans1, ans2, ans3, ans4);
+	int j=0;
+	//printf("a : ");
+	for (j=0;j<numberOf32Bits/2;j++){
+		//printf("%d ",a[i].range(((j + 1) * 32) + 31, j*32));
+		unsigned long t = a[i].range(((j + 1) * 32) + 31, j*32);
+		//printf("%lX ",t);
+		fprintf(fp,"%lX ",t);
+		fprintf(fp_calc,"%lX ",t);
+	}
+	//printf(" , ");
+	//printf("b : ");
+	for (j=0;j<numberOf32Bits/2;j++){
+		unsigned long t = b[i].range(((j + 1) * 32) + 31, j*32);
+		//printf("%lX ",t);
+		fprintf(fp,"%lX ",t);
+		fprintf(fp_calc,"%lX ",t);
+	}
+	//printf(" , ");
+	//printf("out : ");
+	for (j=0;j<numberOf32Bits;j++){
+		unsigned long t = output.range(((j + 1) * 32) + 31, j*32);
+		unsigned long tcalc = output_calc.range(((j + 1) * 32) + 31, j*32);
+		//printf("%lX ",t);
+		fprintf(fp,"%lX ",t);
+		fprintf(fp_calc,"%lX ",tcalc);
+	}
+	//printf("\n");
+	fprintf(fp,"\n");
+	fprintf(fp_calc,"\n");
+    //unsigned long long ans1 = a[i];
+    //unsigned long long ans2 = b[i];
+    //unsigned long long ans3 = output.range(MUL_LRG_LOW_WIDTH-1, 0); //apint_get_range(output, MUL_LRG_LOW_WIDTH-1, 0);
+    //unsigned long long ans4 = output.range(MUL_LRG_MAX_WIDTH-1, MUL_LRG_LOW_WIDTH); //apint_get_range(output, MUL_LRG_MAX_WIDTH-1, MUL_LRG_LOW_WIDTH);
+    //printf("Output : %llX\n",output);
+    //printf("Output calc : %llX\n",output_calc);
+    //fprintf(fp,"%i %llX %llX %llX %llX\n",i, ans1, ans2, ans3, ans4);
     //fprintf(fp_calc,"%i %llX %llX %llX %llX\n",i, ans1, ans2, apint_get_range(output_calc, MUL_LRG_LOW_WIDTH-1, 0), apint_get_range(output_calc, MUL_LRG_MAX_WIDTH-1, MUL_LRG_LOW_WIDTH));
     //fprintf(fp_calc,"%i %llX %llX %llX %llX\n",i, ans1, ans2, output_calc.range(MUL_LRG_LOW_WIDTH-1, 0), output_calc.range(MUL_LRG_MAX_WIDTH-1, MUL_LRG_LOW_WIDTH));
 
   }
   fclose(fp);
-  //fclose(fp_calc);
+  fclose(fp_calc);
   
   printf ("Comparing against output data \n");
   if (system("diff -w out_large.dat out_large.calc.dat")) {

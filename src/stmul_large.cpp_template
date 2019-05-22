@@ -9,11 +9,11 @@ uinth unit_mult(uintlhalf a_0, uintlhalf a_1, uintlhalf a_2, uintlhalf a_3, uint
 }
 
 #ifndef DIRECT_MULTIPLIER
-//uint_large_h adder(uint_large_h a, uint_large_h b){
-//	uint_large_h result;
-//	result = a + b;
-//	return result;
-//}
+uint_large_h adder(uint_large_h a, uint_large_h b){
+	uint_large_h result;
+	result = a + b;
+	return result;
+}
 #else
 uint_large_h direct_mult(uint_large_l x, uint_large_l y){
 #pragma HLS RESOURCE variable=return core=Mul_LUT

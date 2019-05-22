@@ -20,7 +20,7 @@ fo.write('set_directive_latency -min ' + str(latency) + ' -max ' + str(latency) 
 fo.write('set_directive_pipeline -II ' + str(interval) + ' "mul"\n')
 fo.write('set_directive_allocation -limit ' + str(number_of_adders) + ' -type function "mul" add\n')
 fo.write('set_directive_allocation -limit ' + str(number_of_mults) + ' -type function "mul" mult\n')
-fo.write('set_directive_resource -core ' + str(mult_type) + ' "mult" return\n')
+#fo.write('set_directive_resource -core ' + str(mult_type) + ' "mult" return\n')
 
 fo.close()
 
