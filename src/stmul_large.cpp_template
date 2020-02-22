@@ -1,10 +1,11 @@
+#define AP_INT_MAX_W 8192          // Must be defined before next line
 #include <ap_int.h>
 #include <hls_stream.h>
 #include "stmul_large.h"
 
-uinth unit_mult(uintlhalf a_0, uintlhalf a_1, uintlhalf a_2, uintlhalf a_3, uintlhalf b_0, uintlhalf b_1, uintlhalf b_2, uintlhalf b_3){
+uinth unit_mult(uintlhalf a_0, uintlhalf a_1, uintlhalf b_0, uintlhalf b_1){
 	uinth o;
-	mul(&o,a_0,a_1,a_2,a_3,b_0,b_1,b_2,b_3);
+	mul(&o,a_0,a_1,b_0,b_1);
 	return o;
 }
 

@@ -1,6 +1,8 @@
 import subprocess
 import os
 from shutil import copyfile
+import prepare_unit_mult_directives
+import prepare_unit_mult_definition
 
 # latency interval #mult, #add, bit_width
 #value_range = [ [5,2,2,3,4],[5,2,2,3,8],[5,2,2,3,16],[5,2,2,3,32],
@@ -88,11 +90,11 @@ for value in value_range:
 
     bit_width = value[4]
 
-    # python prepare_directives.py 5 2 2 3 Mul_LUT
-    subprocess.check_call(["python","prepare_directives.py", str(latency), str(interval), str(number_of_mults), str(number_of_adders), mult_type])
+    #  prepare_directives.py 5 2 2 3 Mul_LUT
+    prepare_unit_mult_directives.generate(latency, interval, number_of_mults, number_of_adders, mult_type)
 
-    # python prepare_definition.py 16
-    subprocess.check_call(["python","prepare_definition.py", str(bit_width)])
+    #  prepare_definition.py 16
+    prepare_unit_mult_definition.generate(bit_width)
 
     # vivado_hls -f script.tcl
     subprocess.check_call(["D:/Xilinx/Vivado/2018.2/bin/vivado_hls.bat","-f","script.tcl"])
@@ -101,14 +103,14 @@ for value in value_range:
     try:
         os.mkdir("simulation_outputs")
     except:
-        print("Folder is already exist. Skipping.")
+        print("Folder already exist. Skipping.")
 
     # copy files
     folder = "./simulation_outputs/csynth_"  + str(latency) + "_" + str(interval) + "_" + str(number_of_mults) + "_" + str(number_of_adders) + "_" + str(bit_width)
     try:
         os.mkdir(folder)
     except:
-        print("Folder is already exist. Skipping.")
+        print("Folder already exist. Skipping.")
     src_file = "./mul_prj/solution1/syn/report/mul_csynth.xml"
     dest_file = folder + "/mul_csynth.xml"
     copyfile(src_file, dest_file)

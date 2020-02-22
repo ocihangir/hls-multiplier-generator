@@ -48,7 +48,7 @@ int main () {
 		// Save the results.
 	int j=0;
 	//printf("a : ");
-	for (j=0;j<numberOf32Bits/2;j++){
+	for (j=0;j<numberOf32Bits/2-1;j++){
 		//printf("%d ",a[i].range(((j + 1) * 32) + 31, j*32));
 		unsigned long t = a[i].range(((j + 1) * 32) + 31, j*32);
 		//printf("%lX ",t);
@@ -57,7 +57,7 @@ int main () {
 	}
 	//printf(" , ");
 	//printf("b : ");
-	for (j=0;j<numberOf32Bits/2;j++){
+	for (j=0;j<numberOf32Bits/2-1;j++){
 		unsigned long t = b[i].range(((j + 1) * 32) + 31, j*32);
 		//printf("%lX ",t);
 		fprintf(fp,"%lX ",t);
@@ -65,7 +65,7 @@ int main () {
 	}
 	//printf(" , ");
 	//printf("out : ");
-	for (j=0;j<numberOf32Bits;j++){
+	for (j=0;j<numberOf32Bits-1;j++){
 		unsigned long t = output.range(((j + 1) * 32) + 31, j*32);
 		unsigned long tcalc = output_calc.range(((j + 1) * 32) + 31, j*32);
 		//printf("%lX ",t);

@@ -1,6 +1,6 @@
 #include "stmul.h"
 #define SCHOOL_BOOK
-
+#define DIRECT_MULTIPLIER
 #ifndef DIRECT_MULTIPLIER
 uintl mult(uintlhalf x, uintlhalf y){
 	uintl m1 = (uintl)((uintl)x * (uintl)y);
@@ -17,7 +17,7 @@ uintl add(uintlhalf x, uintlhalf y, uintlhalf c){
 #endif
 }
 #else
-uinth mult(uintl x, uintl y){
+uinth mult(uinth x, uinth y){
 //#pragma HLS RESOURCE variable=return core=Mul_LUT
 	uinth m1 = (uinth)((uinth)x * (uinth)y);
 	return m1;
@@ -28,25 +28,17 @@ void mul (
 		uinth *y,
 		uintlhalf a_0,
 		uintlhalf a_1,
-		uintlhalf a_2,
-		uintlhalf a_3,
 		uintlhalf b_0,
-		uintlhalf b_1,
-		uintlhalf b_2,
-		uintlhalf b_3
+		uintlhalf b_1
 		//uintl a,
 		//uintl b
   ) {
 
 #ifdef DIRECT_MULTIPLIER
-	uintl a =  (uintl)((uintl)((uintl)a_3 << (MUL_LOW_WIDTH + MUL_HALF_WIDTH)) |
-					   (uintl)((uintl)a_2 << MUL_LOW_WIDTH) |
-					   (uintl)((uintl)a_1 << MUL_HALF_WIDTH) |
-					   (uintl)((uintl)a_0));
-	uintl b =  (uintl)((uintl)((uintl)b_3 << (MUL_LOW_WIDTH + MUL_HALF_WIDTH)) |
-					   (uintl)((uintl)b_2 << MUL_LOW_WIDTH) |
-					   (uintl)((uintl)b_1 << MUL_HALF_WIDTH) |
-					   (uintl)((uintl)b_0));
+	uinth a =  (uinth)((uinth)((uinth)a_1 << MUL_HALF_WIDTH) |
+					   (uinth)((uinth)a_0));
+	uinth b =  (uinth)((uinth)((uinth)b_1 << MUL_HALF_WIDTH) |
+					   (uinth)((uinth)b_0));
 	*y = mult(a, b); // Direct multiplier
 #else
 
@@ -62,12 +54,8 @@ void mul (
 
 	uintlhalf ma_0 = a_0;
 	uintlhalf ma_1 = a_1;
-	uintlhalf ma_2 = a_2;
-	uintlhalf ma_3 = a_3;
 	uintlhalf mb_0 = b_0;
 	uintlhalf mb_1 = b_1;
-	uintlhalf mb_2 = b_2;
-	uintlhalf mb_3 = b_3;
 
 	uintl m1, m2, m3, m4, a1, a2, a3, a4, a5;
 	uintlhalf a1_l, a1_c, a2_l, a2_c, a3_l, a3_c,a4_l, a4_c,a5_l;
@@ -76,7 +64,7 @@ void mul (
 	// State 1 :
 	// Op : D*B, A*D
 	m1 = mult(ma_0, mb_0);
-	m2 = mult(ma_1, mb_1);
+	m2 = mult(ma_0, mb_1);
 
 	m1_h = m1.range(MUL_LOW_WIDTH-1,MUL_HALF_WIDTH);
 	m1_l = m1.range(MUL_HALF_WIDTH-1,0);
@@ -90,8 +78,8 @@ void mul (
 	a1_c = a1.range(MUL_LOW_WIDTH-1,MUL_HALF_WIDTH);
 
 	// Op : C*B, C*A
-	m3 = mult(ma_2, mb_2);
-	m4 = mult(ma_3, mb_3);
+	m3 = mult(ma_1, mb_0);
+	m4 = mult(ma_1, mb_1);
 
 	m3_h = m3.range(MUL_LOW_WIDTH-1,MUL_HALF_WIDTH);
 	m3_l = m3.range(MUL_HALF_WIDTH-1,0);

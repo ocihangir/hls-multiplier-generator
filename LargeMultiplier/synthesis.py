@@ -1,6 +1,10 @@
 import subprocess
 import os
 from shutil import copyfile
+import prepare_large_mult_directives
+import prepare_large_mult_definition
+import UnitMultiplier.prepare_unit_mult_definition
+import UnitMultiplier.prepare_unit_mult_directives
 
 # unit_multiplier_latency unit_multiplier_interval unit_multiplier_#mult, unit_multiplier_#add, unit_multiplier_bit_width, large_multiplier_number_of_unit_mults, large_multiplier_latency, large_multiplier_interval, output_width
 '''value_range = [[5,2,2,3,64,1,32,2,1024], [5,2,2,3,128,1,32,2,1024], [5,2,2,3,16,1,32,2,1024],[5,2,2,3,32,1,32,2,1024],
@@ -41,7 +45,7 @@ from shutil import copyfile
 
 '''value_range = [[5,2,2,3,32,1,64,2,256],[5,2,2,3,64,1,64,2,512],
                 [5,2,2,3,64,1,64,2,256],[5,2,2,3,16,1,64,2,256]]'''
-value_range = [] #[[5,2,2,3,64,4,64,2,512,4]]
+value_range = [[5,2,1,1,256,1,4000,2,4096,1]]
 '''for lat in range(1,6):
     for interval in range(1,lat+1):
         for num_of_umult in range(1,5):
@@ -75,16 +79,16 @@ value_range = [] #[[5,2,2,3,64,4,64,2,512,4]]
                 value_range.append([lat,interval,4,4,16,num_of_umult,64,2,out_width])'''
 
 
-lat = 5
-interval = 2
-numofmult = 2
-numofadd = 3
-#for lat in range(1,6):
-#    for interval in range(1,lat+1):
-for num_of_umult in range(1,8):
-    for out_width in [512]:
-        for unit_width in [32,64,128]:
-            value_range.append([lat,interval,numofmult,numofadd,unit_width,num_of_umult,64,2,out_width,num_of_umult])
+'''lat = 7
+interval = 1
+numofmult = 1
+numofadd = 1
+for lat in range(3,8):
+    for interval in range(2,lat+1):
+        for num_of_umult in range(1,8):
+            for out_width in [512]:
+                for unit_width in [32,64,128]:
+                    value_range.append([lat,interval,numofmult,numofadd,unit_width,num_of_umult,64,2,out_width,num_of_umult])'''
         
 #bit_width_range = [4, 8, 16, 32, 64]
 #latency_range = [8, 7, 6, 5, 4, 3, 2, 1]
@@ -107,17 +111,16 @@ for value in value_range:
     large_multiplier_number_of_adders = value[9]
     
 
-    # python prepare_directives.py 5 2 2 3 Mul_LUT
-    subprocess.check_call(["python","prepare_directives.py", str(latency), str(interval), str(number_of_mults), str(number_of_adders), mult_type, str(large_multiplier_number_of_unit_mults), str(large_multiplier_latency), str(large_multiplier_interval), mult_type, str(large_multiplier_number_of_adders)])
+    #  prepare_directives.py 5 2 2 3 Mul_LUT
+    prepare_large_mult_directives.generate(latency, interval, number_of_mults, number_of_adders, mult_type, large_multiplier_number_of_unit_mults, large_multiplier_latency, large_multiplier_interval, mult_type, large_multiplier_number_of_adders)
 
-    # python prepare_definition.py 16
-    subprocess.check_call(["python","prepare_definition.py", str(large_multiplier_output_width), str(bit_width / 2)])
-
+    #  prepare_definition.py 16
+    prepare_large_mult_definition.generate(large_multiplier_output_width, bit_width / 2)
     #
-    subprocess.check_call(["python","../UnitMultiplier/prepare_definition.py", str(bit_width * 2)])
+    UnitMultiplier.prepare_unit_mult_definition.generate(bit_width * 2)
 
     # vivado_hls -f script.tcl
-    subprocess.check_call(["D:/Xilinx/Vivado/2018.2/bin/vivado_hls.bat","-f","script.tcl"])
+    subprocess.check_call(["C:/Xilinx/Vivado/2019.2/bin/vivado_hls.bat","-f","script.tcl"])
 
     # mkdir synthesis_outputs
     try:

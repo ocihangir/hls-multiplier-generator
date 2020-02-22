@@ -47,18 +47,21 @@ class LargeMultiplierGenerator(object):
         self.output_file.write("\n")
 
         for i in range(0,len(self.input_registers_1)):
-            self.output_file.write("uintlhalf in_op0_" + str(i * unit_mult_size) + " = a.range(" + str((i + 1) * unit_mult_size - 1) + "," + str(i * unit_mult_size) + ");\n")
+            self.output_file.write("uintlhalf in_op0_" + str(int(i * unit_mult_size)) + " = a.range(" + str(int((i + 1) * unit_mult_size - 1)) + "," + str(int(i * unit_mult_size)) + ");\n")
 
         self.output_file.write("\n")
 
         for i in range(0,len(self.input_registers_2)):
-            self.output_file.write("uintlhalf in_op1_" + str(i * unit_mult_size) + " = b.range(" + str((i + 1) * unit_mult_size - 1) + "," + str(i * unit_mult_size) + ");\n")
+            self.output_file.write("uintlhalf in_op1_" + str(int(i * unit_mult_size)) + " = b.range(" + str(int((i + 1) * unit_mult_size - 1)) + "," + str(int(i * unit_mult_size)) + ");\n")
 
         self.output_file.write("\n")
         self.output_file.write("// Unit multiplier outputs\n")
-        self.output_file.write("//uint_large_h output[" + str(len(self.unit_mults) / 4) + "];\n")
+        self.output_file.write("//uint_large_h output[" + str(int(len(self.unit_mults) / 4)) + "];\n")
         self.output_file.write("uint_large_h tmp_output = 0;\n")
+        #self.output_file.write("ap_uint<132> tmp_output = 0;\n")
         self.output_file.write("\n")
+
+        outputs = {}
 
         adder = ""
 
@@ -91,7 +94,7 @@ class LargeMultiplierGenerator(object):
                     if (mult_.weight == mult.weight + 2 * unit_mult_size):
                         used_mults.append(mult_)
                         mult_group.append(mult_)
-                        self.output_file.write("// Unit multiplier " + str(ind) + "\n")
+                        
                         
                         min_weight = len(self.unit_mults) * unit_mult_size
 
@@ -100,12 +103,23 @@ class LargeMultiplierGenerator(object):
                             if tmp < min_weight:
                                 min_weight = tmp
                         self.mult_pos.append(min_weight)
-                        self.output_file.write("//output[" + str(ind) + "] = (uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " );\n")
-                        self.output_file.write("tmp_output = adder(tmp_output,(uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " ));\n")
+                        #self.output_file.write("// Unit multiplier " + str(ind) + "\n")
+                        #self.output_file.write("//output[" + str(ind) + "] = (uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " );\n")
+                        #self.output_file.write("tmp_output = adder(tmp_output,(uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " ));\n")
+                        if not min_weight in outputs:
+                            outputs[min_weight] = ""
+                        outputs[min_weight] += "// Unit multiplier " + str(int(ind)) + "\ntmp_output = adder(tmp_output,(uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(int(mult_group[0].op1.position)) + ", in_op0_" + str(int(mult_group[2].op1.position)) + ", in_op1_" + str(int(mult_group[0].op2.position)) + ", in_op1_" + str(int(mult_group[1].op2.position)) + ") << " + str(int(min_weight)) + " ));\n"
+                        #outputs[min_weight] += "// Unit multiplier " + str(ind) + "\ntmp_output = adder(tmp_output,(uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ") << " + str(min_weight) + " ));\n"
+                        
+                        #outputs[min_weight] += "// Unit multiplier " + str(ind) + "\ntmp_output = adder(tmp_output,(uint_large_h)((uint_large_h)unit_mult(in_op0_" + str(mult_group[0].op1.position) + ", in_op0_" + str(mult_group[1].op1.position) + ", in_op0_" + str(mult_group[2].op1.position) + ", in_op0_" + str(mult_group[3].op1.position) + ", in_op1_" + str(mult_group[0].op2.position) + ", in_op1_" + str(mult_group[1].op2.position) + ", in_op1_" + str(mult_group[2].op2.position) + ", in_op1_" + str(mult_group[3].op2.position) + ")/* << " + str(min_weight) + " */));\n"
+                        
                         adder = adder + " + output[" + str(ind) + "]"
                         break
                 
             ind = ind + 1
+
+        for key, value in outputs.items():
+            self.output_file.write(value)
         
         self.output_file.write("\n")
 
@@ -170,7 +184,7 @@ def main():
     if len(sys.argv) < 4:
         print("usage : python multiplier_generator_hls.py op1_width op2_width unit_mult_size")
         exit
-    multGen = LargeMultiplierGenerator(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+    LargeMultiplierGenerator(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
     
 if __name__== "__main__":
     main()
