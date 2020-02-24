@@ -6,7 +6,8 @@ import prepare_large_mult_definition
 import UnitMultiplier.prepare_unit_mult_definition
 import UnitMultiplier.prepare_unit_mult_directives
 
-# unit_multiplier_latency unit_multiplier_interval unit_multiplier_#mult, unit_multiplier_#add, unit_multiplier_bit_width, large_multiplier_number_of_unit_mults, large_multiplier_latency, large_multiplier_interval, output_width
+# unit_multiplier_latency unit_multiplier_interval unit_multiplier_#mult, unit_multiplier_#add, unit_multiplier_bit_width, 
+# large_multiplier_number_of_unit_mults, large_multiplier_latency, large_multiplier_interval, output_width
 '''value_range = [[5,2,2,3,64,1,32,2,1024], [5,2,2,3,128,1,32,2,1024], [5,2,2,3,16,1,32,2,1024],[5,2,2,3,32,1,32,2,1024],
                [5,2,2,3,64,2,32,2,1024], [5,2,2,3,128,2,32,2,1024], [5,2,2,3,16,2,32,2,1024],[5,2,2,3,32,2,32,2,1024],
                [5,2,2,3,64,4,32,2,1024], [5,2,2,3,128,4,32,2,1024], [5,2,2,3,16,4,32,2,1024],[5,2,2,3,32,4,32,2,1024],
@@ -45,7 +46,7 @@ import UnitMultiplier.prepare_unit_mult_directives
 
 '''value_range = [[5,2,2,3,32,1,64,2,256],[5,2,2,3,64,1,64,2,512],
                 [5,2,2,3,64,1,64,2,256],[5,2,2,3,16,1,64,2,256]]'''
-value_range = [[5,2,1,1,256,1,4000,2,4096,1]]
+value_range = [[5,2,2,3,256,1,4000,2,4096,1]]
 '''for lat in range(1,6):
     for interval in range(1,lat+1):
         for num_of_umult in range(1,5):

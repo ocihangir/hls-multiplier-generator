@@ -97,7 +97,7 @@ for value in value_range:
     prepare_unit_mult_definition.generate(bit_width)
 
     # vivado_hls -f script.tcl
-    subprocess.check_call(["D:/Xilinx/Vivado/2018.2/bin/vivado_hls.bat","-f","script.tcl"])
+    subprocess.check_call(["C:/Xilinx/Vivado/2019.2/bin/vivado_hls.bat","-f","script.tcl"])
 
     # mkdir synthesis_outputs
     try:
